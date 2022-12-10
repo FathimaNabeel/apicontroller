@@ -1,0 +1,77 @@
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<div id="app">{{message}}
+
+
+<ul>
+
+<li v-for="state in api_data">{{state}} </li>
+
+</ul>
+
+
+<button @click="getdatau">fetch data</button><br>
+Name : <input type="text" v-model="user_data.name"><br>
+DOB : <input type="date" v-model="user_data.dob"> <br>
+IsEmployee: <input type="checkbox" v-model="user_data.is_employed"> <br>
+Description: <input type="textarea " v-model="user_data.Description"> <br>
+<!-- <div class="form-group form-check">
+    <input type="checkbox" v-model="user.accept" id="accept" class="form-check-input">
+    <label class="form-check-label" for="accept">Accept terms and conditions</label>
+</div> -->
+
+</div>
+
+
+
+<script>
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    // message: 'Hello Vue.js!',
+    // api_data: ["kerala","tamil nadu","karnataka","goa","gujarath","bihar"],
+    user_data:'',
+
+  },
+  methods: {
+    // getstate: async function () {
+
+    //     this.api_data = await fetch('http://localhost/api/getstate');
+    
+    //     this.api_data = await this.api_data.json();
+
+    // },
+
+    getdatau: function(){
+
+      var url= 'http://localhost/api/getdata';
+                  axios.get(url)
+                  .then(function (response) {
+                    // console.log(response.data);
+                    this.user_data = response.data;
+                    console.log(this.user_data);
+                  }.bind(this))
+                  .catch(function (error) {
+                    console.log(error);
+                  });
+    }
+  },
+  mounted:function(){
+    // this.getstate();
+  }
+})
+
+</script>
+<!-- <script>
+    export default {
+        data() {
+            return {
+                user: {
+                    accept: true
+                }
+            };
+        }
+    };
+    </script> -->

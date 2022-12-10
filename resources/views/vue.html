@@ -1,0 +1,42 @@
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+<div id="app">{{message}}
+
+
+<ul>
+
+<li v-for="state in api_data">{{state}} </li>
+
+</ul>
+
+
+</div>
+
+
+
+<script>
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    message: 'States in India',
+    api_data: '',
+
+  },
+  methods: {
+    getstate: async function () {
+
+        this.api_data = await fetch('http://localhost/api/getstate');
+    
+        this.api_data = await this.api_data.json();
+
+    }
+  },
+  mounted:function(){
+    this.getstate();
+  }
+})
+
+</script>
